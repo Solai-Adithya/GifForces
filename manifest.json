@@ -12,20 +12,17 @@
   
     "web_accessible_resources": [" gifs/* "],
 
-    "permissions": ["tabs", "*://codeforces.com/*"],
+    "permissions": ["tabs", "*://codeforces.com/*" ,"storage" ,"<all_urls>"],
 
     "browser_action": {
         "default_icon": "icons/codeforces.png",
-        "default_title": "popup's gotta come here"
+        "default_title": "GifForces",
+        "default_popup": "ui/popup.html"
     },
-
     "content_scripts": [
-      {
-        "matches": ["http://codeforces.com/*" , "https://codeforces.com/*"],
-        "js": [ "content.js" ]
-      }
-      ],
-    "background": {
-      "scripts": ["background.js"]
-    }
+        {
+            "matches": ["http://codeforces.com/*" , "https://codeforces.com/*"],
+            "js": [ "content.js" ]
+        }
+    ]
   }

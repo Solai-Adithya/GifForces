@@ -2,17 +2,29 @@ console.log("success");
 
 //document.getElementById("sidebar").style.display = "none" ;
 
+// chrome.storage.local.get('handle', function (items) {
+//     assignTextToTextareas(items.handle);
+//     chrome.storage.local.remove('handle');
+// });
+
 chrome.runtime.onMessage.addListener(gotMessage);
 
 function gotMessage(message,sender,sendResponse) {
-    console.log(message)
-    console.log("in content script , json follows")
-    setTimeout(function(){console.log(message);},3000);
 
-    if(message.txt === "turn-on") {
-        const div = document.createElement('div')
-        div.className = "resultgif"
-        div.insertAdjacentHTML("afterbegin",`
+    var handle = message.handle ;
+    console.log("handle received : "+ handle)
+    var URL = `https://codeforces.com/api/user.status?handle=${handle}&from=1&count=5`;
+    var jsondata;
+    fetch(URL, {method: "GET"})
+        .then(function(json) {
+            console.log("json function follows")
+            jsondata = json
+            console.log(jsondata)
+        })
+
+    const div = document.createElement('div')
+    div.className = "resultgif"
+    div.insertAdjacentHTML("afterbegin",`
         <style>
         .resultgif {
             position:fixed;
@@ -35,7 +47,7 @@ function gotMessage(message,sender,sendResponse) {
         .resultgif #close {
             color:red;
             margin:2px;
-            padding: 0px 5px 0px 5px;
+            padding: 0 5px 0 5px;
             border: black 1px solid;
         }
         </style>
@@ -50,13 +62,8 @@ function gotMessage(message,sender,sendResponse) {
             <p id="CenterThis">Problem: Whatever </p>
         </div>
         `);
-        // chrome.extension.getURL("images/myimage.png");
-        document.getElementById('sidebar').appendChild(div); 
-    }
-    else if (message.txt === "turn-off") {
-        const elements = document.getElementsByClassName("resultgif");
-        while (elements.length > 0) elements[0].remove();
-    }
+    document.getElementById('sidebar').appendChild(div);
 }
+
 console.log("final success");
 
