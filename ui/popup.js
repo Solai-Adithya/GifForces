@@ -4,8 +4,9 @@ function setup(event) {
     let userinput = document.getElementById("userinput").value;
 
     //Value got from input field in popup
-    let message = { handle : userinput }
-    console.log(" handle is "+ userinput    )
+    let message = { txt :true }
+    console.log(" handle is "+ userinput )
+    localStorage.setItem('handle',userinput);
     chrome.tabs.query({currentWindow: true}, function (tabs) {
         for (let i = 0; i < tabs.length; i++) {
             if (/codeforces.com/.test(tabs[i].url) ) {
