@@ -16,13 +16,15 @@
 
     "browser_action": {
         "default_icon": "icons/codeforces.png",
-        "default_title": "GifForces",
-        "default_popup": "ui/popup.html"
+        "default_title": "GifForces"
     },
     "content_scripts": [
         {
             "matches": ["http://codeforces.com/*" , "https://codeforces.com/*"],
             "js": [ "content.js" ]
         }
-    ]
+    ],
+    "background": {
+        "scripts" : ["background.js"]
+    }
   }
