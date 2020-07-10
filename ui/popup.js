@@ -2,11 +2,12 @@ console.log("popup.js running")
 
 function setup(event) {
     let userinput = document.getElementById("userinput").value;
-
-    //Value got from input field in popup
-    let message = { txt :true }
+    let message = { txt : true }
     console.log(" handle is "+ userinput )
-    localStorage.setItem('handle',userinput);
+    window.localStorage.setItem('handle',userinput);
+    chrome.storage.local.set({'handle':userinput},function () {
+        console.log("handle sent")
+    })
     chrome.tabs.query({currentWindow: true}, function (tabs) {
         for (let i = 0; i < tabs.length; i++) {
             if (/codeforces.com/.test(tabs[i].url) ) {
