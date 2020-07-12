@@ -2,12 +2,12 @@ console.log("popup.js running")
 var handle;
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("submit").addEventListener("click", setup);
+    document.getElementById("submit").addEventListener("click", function(){setup()});
     document.getElementById("deactivate").addEventListener("click",function() { set_active(false) });
     document.getElementById("activate").addEventListener("click",function() { set_active(true) });
 });
 
-function setup(event) {
+function setup() {
     handle = document.getElementById("userinput").value;
     let message = { txt : true } //Activation Message
     console.log(" handle is "+ handle )

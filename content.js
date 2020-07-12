@@ -5,9 +5,6 @@ var t1;
   3) Try to better the UI of the notification on the web page .
       * Also try using local gifs or some other format like HTML5 for the gif ,
         something which doesn't consume as much and possibly easily loadable.
-  5) Improve the UI of the popup page
-      * add links to my github , linkedin
-      * add a feedback option linking to a google form possibly
   6) Create a version of extension for chrome , changing some api specific to firefox .
      Also clean up the files and push to github after squashing commits
   7) After changing console outputs , Get the deployment version ready and upload extension on firefox and chrome.

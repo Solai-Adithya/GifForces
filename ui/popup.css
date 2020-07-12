@@ -1,5 +1,6 @@
 body {
     font-family: Ubuntu;
+    min-width: 270px;
 }
 
 #activate,#deactivate {
