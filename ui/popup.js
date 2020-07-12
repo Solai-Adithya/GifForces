@@ -38,12 +38,12 @@ function set_active(active)
         }
     });
     if (active) {
-        browser.browserAction.setIcon({ path: 'enabled.png' });
+        chrome.browserAction.setIcon({ path: 'enabled.png' });
         document.getElementById("activate").style.display = "none";
         document.getElementById("deactivate").style.display = "block";
     }
     else {
-        browser.browserAction.setIcon({ path: 'disabled.png' });
+        chrome.browserAction.setIcon({ path: 'disabled.png' });
         document.getElementById("deactivate").style.display = "none";
         document.getElementById("activate").style.display = "block";
     }
