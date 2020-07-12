@@ -1,0 +1,30 @@
+#activate,#deactivate {
+    display: block;
+    margin: 30px auto 30px auto;
+}
+
+#activate { display: none; }
+
+.greenButton, .redButton {
+    border: none;
+    outline: none;
+    text-align: center;
+    display: inline-block;
+    padding: 0.4em 0.8em;
+    font-size: 1.25rem;
+    color: white;
+    text-decoration: none;
+    font-family: 'Source Sans Pro', sans-serif;
+    cursor: pointer;
+    border-radius: 0.35em; }
+
+.greenButton:hover, .redButton:hover { text-decoration: none; }
+.greenButton { background: #00912b; }
+.redButton {background: #d80000; }
+
+#submit {
+    display: block;
+    margin: 10px auto 10px auto;
+    font-family: "Ubuntu";
+    font-size: 0.9rem;
+}

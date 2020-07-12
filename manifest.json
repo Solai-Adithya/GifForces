@@ -2,9 +2,9 @@
 
     "manifest_version": 2,
     "name": "CF result",
-    "version": "1.0",
+    "version": "0.1",
   
-    "description": "This extension displays gifs when you make submissions announcing the result so that you can continue solving problems with staring at the status page",
+    "description": "Specific to CodeForces site , This extension displays gifs when you make submissions announcing the result so that you can continue solving problems instead of staring at the status page",
   
     "icons": {
       "48": "icons/codeforces.png"
@@ -21,10 +21,10 @@
     "content_scripts": [
         {
             "matches": ["http://codeforces.com/*" , "https://codeforces.com/*"],
-            "js": [ "content.js" ]
+            "js": [ "content.js","remove_element.js" ]
         }
     ],
     "background": {
-        "scripts" : ["background.js"]
+        "scripts" : ["background.js","ui/popup.js"]
     }
   }
