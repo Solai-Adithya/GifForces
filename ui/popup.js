@@ -1,4 +1,5 @@
 console.log("popup.js running")
+var handle;
 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("submit").addEventListener("click", setup);
@@ -7,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function setup(event) {
-    let handle = document.getElementById("userinput").value;
+    handle = document.getElementById("userinput").value;
     let message = { txt : true } //Activation Message
     console.log(" handle is "+ handle )
     window.localStorage.setItem('handle',handle);
@@ -22,8 +23,7 @@ function setup(event) {
             }
         }
     });
-    //setTimeout(document.getElementById("userinput").setAttribute('value',handle),2000);
-    setTimeout(window.close(),1000);
+    setTimeout(window.close(),200);
 }
 
 function set_active(active)
@@ -48,3 +48,5 @@ function set_active(active)
         document.getElementById("activate").style.display = "block";
     }
 }
+
+console.log("popup.js finished")

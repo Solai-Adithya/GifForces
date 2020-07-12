@@ -1,7 +1,12 @@
 console.log("background script started")
 
-chrome.browserAction.setIcon({ path: 'ui/enabled.png', });
-chrome.browserAction.setPopup({ popup: 'ui/popup.html', });
+// chrome.browserAction.setIcon({ path: 'ui/enabled.png' });
+chrome.browserAction.setPopup({ popup: 'ui/popup.html' });
+// // browser.browserAction.openPopup()
+// chrome.browserAction.onClicked.addListener(function (tab) {
+//     console.log("Is fired..");
+//     chrome.browserAction.setPopup({ tabId:tab.id,popup: 'ui/popup.html' });
+// });
 
 // This piece of code is to receive message when gif on one tab is closed , then goes on to send messages to all tabs asking them to remove this gif
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {

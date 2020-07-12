@@ -1,3 +1,7 @@
+body {
+    font-family: Ubuntu;
+}
+
 #activate,#deactivate {
     display: block;
     margin: 30px auto 30px auto;
@@ -14,7 +18,7 @@
     font-size: 1.25rem;
     color: white;
     text-decoration: none;
-    font-family: 'Source Sans Pro', sans-serif;
+    /*font-family: 'Source Sans Pro', sans-serif;*/
     cursor: pointer;
     border-radius: 0.35em; }
 
@@ -27,4 +31,8 @@
     margin: 10px auto 10px auto;
     font-family: "Ubuntu";
     font-size: 0.9rem;
+}
+
+.CenterThis {
+    text-align: center;
 }

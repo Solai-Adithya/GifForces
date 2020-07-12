@@ -1,18 +1,11 @@
 console.log("content script has started");
-var t1,t2;
+var t1;
 /* Pending Work :
-  1)
-  2) Make changes so that the handle entered one time is remembered until the user changes it -
-      * Check that the extension works as desired for all tabs having "codeforces.com" in the url
-      * Check that the extension works with newly opened codeforces tabs (even on other windows)
+  1) Check that the extension works with newly opened codeforces tabs (even on other windows)
   3) Try to better the UI of the notification on the web page .
       * Also try using local gifs or some other format like HTML5 for the gif ,
         something which doesn't consume as much and possibly easily loadable.
-      * Make sure that notification appears on all codeforces tabs and gets removed from all tabs
-        when close option is clicked / confirm that the user has seen the gif.
-  4) Alter the "setInterval()" value after checking the ram and network consumption
   5) Improve the UI of the popup page
-      * add enable/disable extension option
       * add links to my github , linkedin
       * add a feedback option linking to a google form possibly
   6) Create a version of extension for chrome , changing some api specific to firefox .
@@ -51,8 +44,14 @@ function fetchapi() {
               console.log("just modifying verdict , problem name and gif ")
               document.getElementById('result').innerHTML = "Verdict : "+verdict;
               document.getElementById('problem_name').innerHTML = "Problem : "+problem_name;
-              if (verdict === "OK") { document.getElementById("gif").src = "https://media.giphy.com/media/87NS05bya11mg/giphy.gif"; }
-              else { document.getElementById("gif").src = "https://media.giphy.com/media/3ohs81rDuEz9ioJzAA/giphy.gif"; }
+              if (verdict === "OK") {
+                document.getElementById("gif").src = "https://media.giphy.com/media/87NS05bya11mg/giphy.gif";
+                document.getElementById("result").style.color = "green";
+              }
+              else {
+                document.getElementById("gif").src = "https://media.giphy.com/media/3ohs81rDuEz9ioJzAA/giphy.gif";
+                document.getElementById("result").style.color = "red";
+              }
             }
             else
             {
@@ -83,6 +82,7 @@ function fetchapi() {
                       float: right;
                       margin: 0 9px 5px 0; 
                       cursor: pointer;  
+                      font-size: 1.5em;
                   }
                   </style>
                   <div class="roundbox sidebox" style="">
@@ -99,8 +99,14 @@ function fetchapi() {
                 document.getElementById('sidebar').appendChild(div)
                 document.getElementById('result').innerHTML += P_verdict;
                 document.getElementById('problem_name').innerHTML += P_name;
-                if (P_verdict === "OK") { document.getElementById("gif").src = "https://media.giphy.com/media/87NS05bya11mg/giphy.gif";}
-                else { document.getElementById("gif").src = "https://media.giphy.com/media/3ohs81rDuEz9ioJzAA/giphy.gif"; }
+                if (P_verdict === "OK") {
+                  document.getElementById("gif").src = "https://media.giphy.com/media/87NS05bya11mg/giphy.gif";
+                  document.getElementById("result").style.color = "green"
+                }
+                else {
+                  document.getElementById("gif").src = "https://media.giphy.com/media/3ohs81rDuEz9ioJzAA/giphy.gif";
+                  document.getElementById("result").style.color = "red";
+                }
                 document.getElementById("close").addEventListener("click", function () {
                   chrome.runtime.sendMessage({txt: "close"}, function (response) {
                     console.log(response)
@@ -110,12 +116,9 @@ function fetchapi() {
               }
             }
             last_submission = data['result'][0]['id'];
-            //console.log("last submission changed to " + last_submission)
           }
         })
     }
-    // t2 = setInterval(initialfetch,1000);
-    // t1 = setInterval(geturl, 1000);
   })
 }
 
