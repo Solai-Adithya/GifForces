@@ -10,7 +10,7 @@
       "48": "icons/codeforces.png"
     },
 
-    "permissions": ["tabs", "*://codeforces.com/*" ,"storage","<all_urls>"],
+    "permissions": ["tabs", "*://codeforces.com/*" ,"storage"],
 
     "browser_action": {
         "default_icon": "icons/codeforces.png",
@@ -23,6 +23,6 @@
         }
     ],
     "background": {
-        "scripts" : ["background.js","ui/popup.js"]
+        "scripts" : ["background.js"]
     }
   }

@@ -1,4 +1,3 @@
-console.log("popup.js running")
 var handle;
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -9,21 +8,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function setup() {
     handle = document.getElementById("userinput").value;
-    let message = { txt : true } //Activation Message
-    console.log(" handle is "+ handle )
-    window.localStorage.setItem('handle',handle);
-    chrome.storage.local.set({'handle':handle},function () {
-        console.log("handle sent")
-    })
-    chrome.tabs.query({}, function (tabs) {
-        for (let i = 0; i < tabs.length; i++) {
-            if (/codeforces.com/.test(tabs[i].url) ) {
-                console.log("sending message to tab "+tabs[i].id)
-                chrome.tabs.sendMessage(tabs[i].id,message);
+    if(handle !== undefined || handle !== null) {
+        let message = {txt: true} //Activation Message
+        console.log(" handle is " + handle)
+        window.localStorage.setItem('handle', handle);
+        chrome.storage.local.set({'handle': handle}, function () {
+            console.log("handle sent")
+        })
+        chrome.tabs.query({}, function (tabs) {
+            for (let i = 0; i < tabs.length; i++) {
+                if (/codeforces.com/.test(tabs[i].url)) {
+                    console.log("sending message to tab " + tabs[i].id)
+                    chrome.tabs.sendMessage(tabs[i].id, message);
+                }
             }
-        }
-    });
-    setTimeout(window.close(),200);
+        });
+        setTimeout(window.close(), 200);
+    }
 }
 
 function set_active(active)
@@ -48,5 +49,3 @@ function set_active(active)
         document.getElementById("activate").style.display = "block";
     }
 }
-
-console.log("popup.js finished")

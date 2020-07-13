@@ -1,14 +1,5 @@
-console.log("content script has started");
 var t1;
-/* Pending Work :
-  1) Check that the extension works with newly opened codeforces tabs (even on other windows)
-  3) Try to better the UI of the notification on the web page .
-      * Also try using local gifs or some other format like HTML5 for the gif ,
-        something which doesn't consume as much and possibly easily loadable.
-  6) Create a version of extension for chrome , changing some api specific to firefox .
-     Also clean up the files and push to github after squashing commits
-  7) After changing console outputs , Get the deployment version ready and upload extension on firefox and chrome.
- */
+
 function fetchapi() {
   chrome.storage.local.get(['handle'], function (items) {
     console.log("handle as received in content script is " + items.handle);
@@ -22,7 +13,6 @@ function fetchapi() {
       .then(res => res.json())
       .then(function (data) {
         last_submission = data['result'][0]['id'];
-        console.log("last submission was " + last_submission);
         t1=setInterval(geturl,1000);
       })
 
@@ -31,14 +21,12 @@ function fetchapi() {
       fetch(URL, {method: "GET"})
         .then(res => res.json())
         .then(function (data) {
-          console.log("The submission's id is " + data['result'][0]['id']);
           if (data['result'][0]['id'] !== last_submission && data['result'][0]['verdict'] !== "TESTING" && data['result'][0]['verdict'] !== undefined)
           {
             verdict = data['result'][0]['verdict']
             problem_name = data['result'][0]['problem']['name']
             if(document.getElementsByClassName('resultgif').length != 0) //If the class resultgif already exists , we just change the gif,verdict and problem name.
             {
-              console.log("just modifying verdict , problem name and gif ")
               document.getElementById('result').innerHTML = "Verdict : "+verdict;
               document.getElementById('problem_name').innerHTML = "Problem : "+problem_name;
               if (verdict === "OK") {
@@ -76,10 +64,11 @@ function fetchapi() {
                   }
                   .resultgif #close {
                       color:red;
-                      float: right;
-                      margin: 0 9px 5px 0; 
+                      float: right; 
                       cursor: pointer;  
-                      font-size: 1.5em;
+                      font-size: 1.25em;
+                      vertical-align: middle;
+                      margin-right: 10px;
                   }
                   </style>
                   <div class="roundbox sidebox" style="">
@@ -137,5 +126,3 @@ function gotMessage(message,sender,sendResponse) { //This message is expected wh
 }
 
 fetchapi();
-console.log("content script finished");
-
