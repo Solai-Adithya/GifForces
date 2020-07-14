@@ -8,5 +8,5 @@ This extension comes in handy during contests where time is crucial. However it 
 Once you enter your handle on the popup page , the extension keeps checking for new submissions . When you make a new submission , the extension starts checking if the result is ready. Once ready , it displays the verdict on all codeforces pages. It also shows the problem name and a suitable gif reaction to your verdict . Once you've acknowledged the result , you can close the gif on one tab and gifs on all tabs will be closed .
 
 
-##Installation
+## Installation
 Now available for download on [Firefox](https://addons.mozilla.org/en-US/firefox/addon/cf-result/) browser.
