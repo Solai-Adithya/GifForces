@@ -25,12 +25,17 @@ function fetchapi() {
           {
             verdict = data['result'][0]['verdict']
             problem_name = data['result'][0]['problem']['name']
+            problem_index = data['result'][0]['problem']['index']
             if(document.getElementsByClassName('resultgif').length != 0) //If the class resultgif already exists , we just change the gif,verdict and problem name.
             {
               document.getElementById('result').innerHTML = "Verdict : "+verdict;
               document.getElementById('problem_name').innerHTML = "Problem : "+problem_name;
               if (verdict === "OK") {
-                document.getElementById("gif").src = "https://media.giphy.com/media/87NS05bya11mg/giphy.gif";
+                if (problem_index === 'A') { document.getElementById("gif").src = "https://media.giphy.com/media/UQ1mhy0t1WQwOLMN5b/giphy.gif"; } //Subtle
+                else if (problem_index === 'B' ) { document.getElementById("gif").src = "https://media.giphy.com/media/39jIKfXVl8xATwzvtv/giphy.gif"; } //Thomas Tuchel gif
+                else if (problem_index.includes('C' )) { document.getElementById("gif").src = "https://media.giphy.com/media/1zkMbX7k4nd1AM4i4k/giphy.gif"} //Jurgen Klopp gif
+                else if (problem_index.includes('E') || problem_index.includes('F')) { document.getElementById("gif").src = "https://media.giphy.com/media/t3klesb74JUTm/giphy.gif"} //I am god.
+                else { document.getElementById("gif").src = "https://acegif.com/wp-content/uploads/funny-celebrate-17.gif"} //Random Coach Celebrating , Intended for D problem
                 document.getElementById("result").style.color = "green";
               }
               else {
@@ -86,8 +91,12 @@ function fetchapi() {
                 document.getElementById('result').innerHTML += P_verdict;
                 document.getElementById('problem_name').innerHTML += P_name;
                 if (P_verdict === "OK") {
-                  document.getElementById("gif").src = "https://media.giphy.com/media/87NS05bya11mg/giphy.gif";
-                  document.getElementById("result").style.color = "green"
+                  if (problem_index === 'A') { document.getElementById("gif").src = "https://media.giphy.com/media/UQ1mhy0t1WQwOLMN5b/giphy.gif"; } //Subtle
+                  else if (problem_index === 'B' ) { document.getElementById("gif").src = "https://media.giphy.com/media/39jIKfXVl8xATwzvtv/giphy.gif"; } //Thomas Tuchel gif
+                  else if (problem_index.includes('C' )) { document.getElementById("gif").src = "https://media.giphy.com/media/1zkMbX7k4nd1AM4i4k/giphy.gif" } //Jurgen Klopp gif
+                  else if (problem_index.includes('E') || problem_index.includes('F')) { document.getElementById("gif").src = "https://media.giphy.com/media/t3klesb74JUTm/giphy.gif" } //I am god.
+                  else { document.getElementById("gif").src = "https://acegif.com/wp-content/uploads/funny-celebrate-17.gif" } //Random Coach Celebrating , Intended for D problem
+                  document.getElementById("result").style.color = "green";
                 }
                 else {
                   document.getElementById("gif").src = "https://media.giphy.com/media/3ohs81rDuEz9ioJzAA/giphy.gif";

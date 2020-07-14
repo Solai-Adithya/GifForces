@@ -2,9 +2,9 @@
 
     "manifest_version": 2,
     "name": "CF result",
-    "version": "0.5",
+    "version": "0.6",
   
-    "description": "Specific to CodeForces site , This extension displays gifs when you make submissions announcing the result so that you can continue solving problems instead of staring at the status page",
+    "description": "Now celebrate your ACs on codeforces with gifs. This extension displays gifs describing the result of your last submission",
   
     "icons": {
       "48": "icons/icon48.png",
