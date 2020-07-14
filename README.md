@@ -9,4 +9,4 @@ Once you enter your handle on the popup page , the extension keeps checking for 
 
 
 ## Installation
-Now available for download on [Firefox](https://addons.mozilla.org/en-US/firefox/addon/cf-result/) browser.
+Now available for download from [Firefox Addons](https://addons.mozilla.org/en-US/firefox/addon/cf-result/)
