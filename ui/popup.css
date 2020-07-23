@@ -8,7 +8,7 @@ body {
     margin: 30px auto 30px auto;
 }
 
-/*#activate { display: none; }*/
+#activate { display: none; }
 
 .greenButton, .redButton {
     border: none;

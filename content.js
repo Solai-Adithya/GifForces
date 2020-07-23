@@ -1,4 +1,4 @@
-var t1;
+var t1,timeout = 2000 ;
 
 function fetchapi() {
   chrome.storage.local.get(['handle'], function (items) {
@@ -13,16 +13,18 @@ function fetchapi() {
       .then(res => res.json())
       .then(function (data) {
         last_submission = data['result'][0]['id'];
-        t1=setInterval(geturl,1000);
+        t1=setInterval(geturl,timeout);
       })
 
-    // The following keeps calling the API to receive the last submission's details
+    // The following function keeps calling the API to receive the last submission's details
     function geturl() {
       fetch(URL, {method: "GET"})
         .then(res => res.json())
         .then(function (data) {
           if (data['result'][0]['id'] !== last_submission && data['result'][0]['verdict'] !== "TESTING" && data['result'][0]['verdict'] !== undefined)
           {
+            timeout = 2000 ;
+            console.log("Timeout has been set to 0.4s "+ timeout);
             verdict = data['result'][0]['verdict']
             problem_name = data['result'][0]['problem']['name']
             problem_index = data['result'][0]['problem']['index']
@@ -31,15 +33,16 @@ function fetchapi() {
               document.getElementById('result').innerHTML = "Verdict : "+verdict;
               document.getElementById('problem_name').innerHTML = "Problem : "+problem_name;
               if (verdict === "OK") {
-                if (problem_index === 'A') { document.getElementById("gif").src = "https://media.giphy.com/media/UQ1mhy0t1WQwOLMN5b/giphy.gif"; } //Subtle
-                else if (problem_index === 'B' ) { document.getElementById("gif").src = "https://media.giphy.com/media/39jIKfXVl8xATwzvtv/giphy.gif"; } //Thomas Tuchel gif
-                else if (problem_index.includes('C' )) { document.getElementById("gif").src = "https://media.giphy.com/media/1zkMbX7k4nd1AM4i4k/giphy.gif"} //Jurgen Klopp gif
-                else if (problem_index.includes('E') || problem_index.includes('F')) { document.getElementById("gif").src = "https://media.giphy.com/media/t3klesb74JUTm/giphy.gif"} //I am god.
-                else { document.getElementById("gif").src = "https://acegif.com/wp-content/uploads/funny-celebrate-17.gif"} //Random Coach Celebrating , Intended for D problem
+                if (problem_index.includes('A')) { document.getElementById("gif").src = chrome.extension.getURL("icons/A.gif"); }
+                else if (problem_index.includes('B') ) { document.getElementById("gif").src = chrome.extension.getURL("icons/B.gif"); }
+                else if (problem_index.includes('C' )) { document.getElementById("gif").src = chrome.extension.getURL("icons/C.gif"); }
+                else if (problem_index.includes('D' ))  { document.getElementById("gif").src = chrome.extension.getURL("icons/D.gif"); }
+                else if (problem_index.includes('E' )) { document.getElementById("gif").src = chrome.extension.getURL("icons/E.gif"); }
+                else { document.getElementById("gif").src = chrome.extension.getURL("icons/god.gif") } // Intended for F and above problems
                 document.getElementById("result").style.color = "green";
               }
               else {
-                document.getElementById("gif").src = "https://media.giphy.com/media/3ohs81rDuEz9ioJzAA/giphy.gif";
+                document.getElementById("gif").src = chrome.extension.getURL("icons/WA.gif");;
                 document.getElementById("result").style.color = "red";
               }
             }
@@ -91,15 +94,16 @@ function fetchapi() {
                 document.getElementById('result').innerHTML += P_verdict;
                 document.getElementById('problem_name').innerHTML += P_name;
                 if (P_verdict === "OK") {
-                  if (problem_index === 'A') { document.getElementById("gif").src = "https://media.giphy.com/media/UQ1mhy0t1WQwOLMN5b/giphy.gif"; } //Subtle
-                  else if (problem_index === 'B' ) { document.getElementById("gif").src = "https://media.giphy.com/media/39jIKfXVl8xATwzvtv/giphy.gif"; } //Thomas Tuchel gif
-                  else if (problem_index.includes('C' )) { document.getElementById("gif").src = "https://media.giphy.com/media/1zkMbX7k4nd1AM4i4k/giphy.gif" } //Jurgen Klopp gif
-                  else if (problem_index.includes('E') || problem_index.includes('F')) { document.getElementById("gif").src = "https://media.giphy.com/media/t3klesb74JUTm/giphy.gif" } //I am god.
-                  else { document.getElementById("gif").src = "https://acegif.com/wp-content/uploads/funny-celebrate-17.gif" } //Random Coach Celebrating , Intended for D problem
+                  if (problem_index.includes('A')) { document.getElementById("gif").src = chrome.extension.getURL("icons/A.gif"); }
+                  else if (problem_index.includes('B') ) { document.getElementById("gif").src = chrome.extension.getURL("icons/B.gif"); }
+                  else if (problem_index.includes('C' )) { document.getElementById("gif").src = chrome.extension.getURL("icons/C.gif"); }
+                  else if (problem_index.includes('D' ))  { document.getElementById("gif").src = chrome.extension.getURL("icons/D.gif"); }
+                  else if (problem_index.includes('E' )) { document.getElementById("gif").src = chrome.extension.getURL("icons/E.gif"); }
+                  else { document.getElementById("gif").src = chrome.extension.getURL("icons/god.gif") } // Intended for F and above problems
                   document.getElementById("result").style.color = "green";
                 }
                 else {
-                  document.getElementById("gif").src = "https://media.giphy.com/media/3ohs81rDuEz9ioJzAA/giphy.gif";
+                  document.getElementById("gif").src = chrome.extension.getURL("icons/WA.gif");;
                   document.getElementById("result").style.color = "red";
                 }
                 document.getElementById("close").addEventListener("click", function () {
@@ -111,6 +115,10 @@ function fetchapi() {
               }
             }
             last_submission = data['result'][0]['id'];
+          }
+          else if(data['result'][0]['verdict'] === "TESTING") {
+            timeout = 200;
+            console.log("Timeout set to 0.2s "+ timeout);
           }
         })
     }

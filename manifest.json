@@ -18,13 +18,18 @@
         "default_icon": "icons/icon48.png",
         "default_title": "GifForces"
     },
+
     "content_scripts": [
         {
             "matches": ["http://codeforces.com/*" , "https://codeforces.com/*"],
             "js": [ "content.js","remove_element.js" ]
         }
     ],
+
     "background": {
         "scripts" : ["background.js"]
-    }
-  }
+    },
+
+    "web_accessible_resources": [ "icons/*" ]
+
+}
