@@ -2,7 +2,7 @@
 
     "manifest_version": 2,
     "name": "CF result",
-    "version": "1.1",
+    "version": "2.0",
   
     "description": "Now celebrate your ACs on codeforces with gifs. This extension sends notifications and displays gifs describing the result of your last submission",
   
