@@ -4,7 +4,7 @@
     "name": "CF result",
     "version": "1.0",
   
-    "description": "Now celebrate your ACs on codeforces with gifs. This extension displays gifs describing the result of your last submission",
+    "description": "Now celebrate your ACs on codeforces with gifs. This extension sends notifications and displays gifs describing the result of your last submission",
   
     "icons": {
       "48": "icons/icon48.png",
@@ -12,7 +12,7 @@
       "128": "icons/icon128.png"
     },
 
-    "permissions": ["tabs", "*://codeforces.com/*" ,"storage"],
+    "permissions": ["tabs", "https://codeforces.com/*", "https://m1.codeforces.com/*", "https://m2.codeforces.com/*" , "https://m3.codeforces.com/*" ,"storage", "webRequest", "notifications"],
 
     "browser_action": {
         "default_icon": "icons/icon48.png",
@@ -21,8 +21,8 @@
 
     "content_scripts": [
         {
-            "matches": ["http://codeforces.com/*" , "https://codeforces.com/*"],
-            "js": [ "content.js","remove_element.js" ]
+            "matches": ["https://codeforces.com/*", "https://m1.codeforces.com/*", "https://m2.codeforces.com/*" , "https://m3.codeforces.com/*"],
+            "js": ["content.js", "remove_element.js" ]
         }
     ],
 
