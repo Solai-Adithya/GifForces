@@ -9,6 +9,6 @@ Once you enter your handle on the popup page and make a submission, the extensio
 
 
 ## Installation
-Now available for download from [Firefox Addons](https://addons.mozilla.org/en-US/firefox/addon/cf-result/)
+Now available for download from [Firefox Addons](https://addons.mozilla.org/en-US/firefox/addon/gifforces/)
 
 If you wish to install the extension for Google Chrome then download this repository and add it manually to chrome.
