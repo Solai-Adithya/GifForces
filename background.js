@@ -10,7 +10,6 @@ function notify(problem_name, verdict) {
     verdict = "Accepted";
     iconURL = "icons/accepted.png";
   } else {
-    verdict = "Wrong Answer";
     iconURL = "icons/wrong-ans.png";
   }
   messageText = verdict + " - " + problem_name;
@@ -97,7 +96,7 @@ function fetchapi(handle) {
             notify(problem_name, verdict);
             clearInterval(repeat);
             return;
-          } else if (data["result"][0]["verdict"] !== "TESTING") {
+          } else if (data["result"][0]["verdict"] === undefined) {
             failureCount += 1;
             if (failureCount >= 3000) {
               clearInterval(repeat);
@@ -111,11 +110,11 @@ function fetchapi(handle) {
 
 function triggerAPICall(request) {
   // Trigger the API call only when a submission request is made.
-  // Observation: A submission request can be checked using regex and it doesn't have an Origin field in the request header
+  // Observation: When a submission is made, a POST request is made with 'referrer' field that can be matched using regex and without an 'origin' field in the request header
   if (request.method == "POST") {
     const headers = request.requestHeaders;
     const referrerRegex = RegExp(/codeforces.com\/.*\/submit/);
-    var submission = true;
+    let submission = true;
     for (let i = 0; i < headers.length; i++) {
       if (headers[i].name == "Origin") {
         submission = false;
