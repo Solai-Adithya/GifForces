@@ -22,11 +22,9 @@ function notify(problem_name, verdict) {
 }
 
 function removeGifsOnAllTabs() {
-  console.log("Removing all gifs on all tabs:", Date.now())
   chrome.tabs.query({}, function (tabs) {
     for (let i = 0; i < tabs.length; i++) {
       if (/codeforces.com/.test(tabs[i].url)) {
-        console.log("close message sent to tab " + tabs[i].id);
         chrome.tabs.sendMessage(tabs[i].id, { remove: true });
       }
     }
@@ -35,9 +33,6 @@ function removeGifsOnAllTabs() {
 
 // when gif on one tab is closed, then send messages to all tabs asking them to remove the gif
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log(
-    "background.js just received a message from content script " + request
-  );
   if (request.close) {
     removeGifsOnAllTabs();
   }
@@ -46,7 +41,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 function fetchapi(handle) {
   chrome.storage.local.get(["handle"], function (items) {
     handle = items.handle;
-    console.log("handle received : " + handle);
 
     // If handle is undefined quit
     if (handle === undefined) {

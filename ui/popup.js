@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function setup() {
   const handle = document.getElementById("userinput").value;
   if (handle !== undefined && handle !== null) {
-    console.log(" handle is " + handle);
     chrome.storage.local.set({ handle: handle }, function () {
       console.log("handle sent");
     });
