@@ -1,6 +1,3 @@
-var repeat;
-const timeout = 225;
-
 chrome.browserAction.setIcon({ path: "ui/enabled.png" });
 chrome.browserAction.setPopup({ popup: "ui/popup.html" });
 
@@ -38,68 +35,60 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 });
 
-function fetchapi(handle) {
-  chrome.storage.local.get(["handle"], function (items) {
-    handle = items.handle;
+function fetchAPI(handle) {
+  let failureCount = 0, repeat;
+  const timeout = 225, lastSubmissionTime=0, URL = `https://codeforces.com/api/user.status?handle=${handle}&from=1&count=1`;
 
-    // If handle is undefined quit
-    if (handle === undefined) {
-      return;
-    }
+  fetch(URL, { method: "GET" })
+    .then((res) => res.json())
+    .then(function (data) {
+      lastSubmissionTime = data["result"][0]["creationTimeSeconds"];
+      // If the last solution was submitted less than 20 seconds ago then fetch API repeatedly else quit.
+      if (Math.floor(Date.now() / 1000) - lastSubmissionTime <= 20) {
+        repeat = setInterval(geturl, timeout);
+      } else {
+        return;
+      }
+    });
 
-    var URL = `https://codeforces.com/api/user.status?handle=${handle}&from=1&count=1`;
-    var lastSubmissionTime=0, failureCount = 0;
-
+  // keep calling the API to receive the last submission's details
+  function geturl() {
     fetch(URL, { method: "GET" })
       .then((res) => res.json())
       .then(function (data) {
-        lastSubmissionTime = data["result"][0]["creationTimeSeconds"];
-        // If the last solution was submitted less than 20 seconds ago then fetch API repeatedly else quit.
-        if (Math.floor(Date.now() / 1000) - lastSubmissionTime <= 20) {
-          repeat = setInterval(geturl, timeout);
-        } else {
-          return;
-        }
-      });
+        if (!["TESTING", undefined].includes(data["result"][0]["verdict"])) {
+          verdict = data["result"][0]["verdict"];
+          problem_name = data["result"][0]["problem"]["name"];
+          problem_index = data["result"][0]["problem"]["index"];
 
-    // keep calling the API to receive the last submission's details
-    function geturl() {
-      fetch(URL, { method: "GET" })
-        .then((res) => res.json())
-        .then(function (data) {
-          if (!["TESTING", undefined].includes(data["result"][0]["verdict"])) {
-            verdict = data["result"][0]["verdict"];
-            problem_name = data["result"][0]["problem"]["name"];
-            problem_index = data["result"][0]["problem"]["index"];
-
-            chrome.tabs.query({}, function (tabs) {
-              for (let i = 0; i < tabs.length; i++) {
-                if (tabs[i].url.match(/codeforces.com/)) {
-                  chrome.tabs.sendMessage(
-                    tabs[i].id,
-                    {
-                      publish: true,
-                      verdict: verdict,
-                      problem_name: problem_name,
-                      problem_index: problem_index,
-                    }
-                  );
-                }
+          chrome.tabs.query({}, function (tabs) {
+            for (let i = 0; i < tabs.length; i++) {
+              if (tabs[i].url.match(/codeforces.com/)) {
+                chrome.tabs.sendMessage(
+                  tabs[i].id,
+                  {
+                    publish: true,
+                    verdict: verdict,
+                    problem_name: problem_name,
+                    problem_index: problem_index,
+                  }
+                );
               }
-            });
-            notify(problem_name, verdict);
+            }
+          });
+          notify(problem_name, verdict);
+          clearInterval(repeat);
+          return;
+        } else if (data["result"][0]["verdict"] === undefined) {
+          failureCount ++;
+          if (failureCount >= 2667) {
+            // If the API calls return undefined for more than 10 minutes, then quit.
             clearInterval(repeat);
             return;
-          } else if (data["result"][0]["verdict"] === undefined) {
-            failureCount += 1;
-            if (failureCount >= 3000) {
-              clearInterval(repeat);
-              return;
-            }
           }
-        });
-    }
-  });
+        }
+      });
+  }
 }
 
 function triggerAPICall(request) {
@@ -126,7 +115,7 @@ function triggerAPICall(request) {
             if (handle === undefined) {
               return;
             }
-            fetchapi(handle);
+            fetchAPI(handle);
           });
           break;
         }
