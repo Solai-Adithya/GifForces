@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function setup() {
   const handle = document.getElementById("userinput").value;
-  if (handle !== undefined && handle !== null) {
+  if (handle!==undefined && handle!==null) {
     chrome.storage.local.set({ handle: handle }, function () {
       console.log("handle sent");
+      setTimeout(window.close(), 200);
     });
-    setTimeout(window.close(), 200);
   }
 }

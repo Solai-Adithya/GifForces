@@ -56,8 +56,8 @@ function publish(verdict, problem_name, problem_index) {
               → Result of your last submission <span id='close' class='infobar-close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>×</span>
           </div>
           <img class="CenterThis" id="gif"  alt="GIF" height=150>
-          <strong><p id= "result" style="padding: 10px 0 2px 10px" >Verdict : </p></strong>
-          <p id="problem_name" style="padding:3px 0 10px 10px ">Problem : </p>
+          <strong><p id= "result" style="padding: 10px 0 2px 10px" >Verdict: </p></strong>
+          <p id="problem_name" style="padding:3px 0 10px 10px ">Problem: </p>
       </div>
       `
     );

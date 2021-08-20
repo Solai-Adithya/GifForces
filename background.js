@@ -36,8 +36,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 function fetchAPI(handle) {
-  let failureCount = 0, repeat;
-  const timeout = 225, lastSubmissionTime=0, URL = `https://codeforces.com/api/user.status?handle=${handle}&from=1&count=1`;
+  let failureCount = 0, repeat, lastSubmissionTime=0;
+  const timeout = 500, URL = `https://codeforces.com/api/user.status?handle=${handle}&from=1&count=1`;
 
   fetch(URL, { method: "GET" })
     .then((res) => res.json())
@@ -80,7 +80,7 @@ function fetchAPI(handle) {
           clearInterval(repeat);
           return;
         } else if (data["result"][0]["verdict"] === undefined) {
-          failureCount ++;
+          failureCount++;
           if (failureCount >= 2667) {
             // If the API calls return undefined for more than 10 minutes, then quit.
             clearInterval(repeat);
